@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winger Hospitals - AI Disease Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+
+    <header>
+        🏥 Winger Hospitals - AI Disease Predictor
+    </header>
+
+    <div class="container">
+        <h1 class="title">🔬 AI-Powered Disease Diagnosis</h1>
+        <p>Enter symptoms separated by commas to get a diagnosis</p>
+
+        <div class="input-box">
+            <input type="text" id="symptoms" placeholder="e.g. fever, cough, headache">
+            <button id="predict-btn" onclick="predictDisease()">🔍 Predict</button>
+        </div>
+
+        <!-- Loading Animation -->
+        <div id="loading" class="hidden">
+            <p>🔄 Generating Results...</p>
+            <div class="spinner"></div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="result" class="hidden">
+            <h2>🩺 Diagnosis Results</h2>
+            <p><strong>Disease:</strong> <span id="disease"></span></p>
+            <p><strong>Description:</strong> <span id="description"></span></p>
+            <p><strong>Medications:</strong> <span id="medications"></span></p>
+            <p><strong>Precautions:</strong> <span id="precautions"></span></p>
+            <p><strong>Recommended Diet:</strong> <span id="diet"></span></p>
+            <p><strong>Workout Suggestions:</strong> <span id="workout"></span></p>
+        </div>
+    </div>
+
+</body>
+</html>
