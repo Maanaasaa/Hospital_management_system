@@ -101,13 +101,21 @@ Key Components
 Backend (Flask)
 
 app.py: Main Flask application.
+
 config.py: Configuration settings.
+
 models.py: Defines database models.
+
 model.ipynb: Jupyter Notebook, likely used for training/testing ML models.
+
 random_forest_model.pkl: Trained Random Forest model for disease prediction.
+
 random_scaler.pkl: Scaler for preprocessing input data.
+
 Training.csv: Dataset used for training the model.
+
 requirements.txt: List of dependencies.
+
 Frontend (React or another framework)
 
 Located in the medinsight-frontend directory.
