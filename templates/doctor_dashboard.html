@@ -1,0 +1,21 @@
+{% include "header.html" %}
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<div class="container">
+    <h2>Doctor Dashboard</h2>
+
+    <h3>Assigned Patients</h3>
+    <ul>
+        {% for patient in patients %}
+            <li>{{ patient.patient.name }} 
+                <form method="POST" action="{{ url_for('add_comment') }}">
+                    <input type="hidden" name="consultation_id" value="{{ patient.id }}">
+                    <input type="text" name="comment" placeholder="Add consultation note" required>
+                    <button type="submit">Submit</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    
+</div>

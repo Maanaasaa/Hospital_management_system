@@ -1,0 +1,35 @@
+{% include "header.html" %}
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<div class="container">
+    <h2>Medical History - {{ patient.name }}</h2>
+    <p>Email: {{ patient.email }}</p>
+    <p>Mobile: {{ patient.mobile }}</p>
+    <p>Blood Group: {{ patient.blood_group }}</p>
+
+    {% for consultation in consultations %}
+        <h3>Consultation ({{ consultation.status }})</h3>
+        <p><strong>Assigned Doctor:</strong> 
+            {{ consultation.doctor.name if consultation.doctor else "Not Assigned" }}
+        </p>
+
+        <h4>Consultation Notes:</h4>
+        {% if consultation.comments %}
+            <ul>
+                {% for comment in consultation.comments %}
+                    <li>
+                        <strong>{{ comment.doctor.name if comment.doctor else "Unknown Doctor" }}:</strong> 
+                        {{ comment.comment }}  
+                        <br><small><em>{{ comment.timestamp.strftime('%Y-%m-%d %H:%M:%S') if comment.timestamp else 'No Timestamp' }}</em></small>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No consultation notes available.</p>
+        {% endif %}
+    {% endfor %}
+    
+    <a href="{{ url_for('admin_dashboard') }}" class="btn">⬅ Back to Admin Dashboard</a>
+</div>

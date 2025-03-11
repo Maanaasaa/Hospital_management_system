@@ -1,0 +1,26 @@
+{% include "header.html" %}
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<div class="container">
+    <h2>Manage Doctors</h2>
+
+    <form id="doctor-form" method="POST" action="{{ url_for('manage_doctors') }}">
+        <input type="text" name="name" placeholder="Doctor Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="mobile" placeholder="Mobile Number" required>
+        <input type="text" name="specialization" placeholder="Specialization" required>
+        <button type="submit">Add Doctor</button>
+    </form>
+
+    <ul id="doctor-list">
+        {% for doctor in doctors %}
+            <li>{{ doctor.name }} ({{ doctor.specialization }}) 
+                <button onclick="removeDoctor({{ doctor.id }})">❌ Remove</button>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('admin_dashboard') }}" class="btn">⬅ Back to Dashboard</a>
+</div>

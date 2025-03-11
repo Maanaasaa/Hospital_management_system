@@ -1,0 +1,49 @@
+{% include "header.html" %}
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='admin_script.js') }}" defer></script>
+</head>
+
+<div class="container">
+    <h2>Admin Dashboard</h2>
+
+    <!-- Links to Separate Pages -->
+    <a href="{{ url_for('manage_doctors') }}" class="btn">👨‍⚕️ Manage Doctors</a>
+    <a href="{{ url_for('manage_patients') }}" class="btn">🧑‍⚕️ Manage Patients</a>
+
+    <h3>Assign Doctor to Patient</h3>
+    <form id="assign-form" method="POST" action="{{ url_for('assign_doctor') }}">
+        <label for="patient_id">Select Patient:</label>
+        <select name="patient_id" required>
+            {% for patient in patients %}
+                <option value="{{ patient.id }}">{{ patient.name }}</option>
+            {% endfor %}
+        </select>
+    
+        <label for="doctor_id">Select Doctor:</label>
+        <select name="doctor_id" required>
+            {% for doctor in doctors %}
+                <option value="{{ doctor.id }}">{{ doctor.name }}</option>
+            {% endfor %}
+        </select>
+    
+        <button type="submit">Assign Doctor</button>
+    </form>
+    
+    <!-- Display assigned doctors -->
+    <h3>Assigned Patients</h3>
+    <ul>
+        {% for patient in patients %}
+            <li>
+                {{ patient.name }} - 
+                {% if patient.consultations and patient.consultations[0].doctor %}
+                    Assigned Doctor: {{ patient.consultations[0].doctor.name }}
+                {% else %}
+                    Not Assigned
+                {% endif %}
+                - <a href="{{ url_for('medical_history', patient_id=patient.id) }}">📋 View Medical History</a>
+            </li>
+        {% endfor %}
+    </ul>
+    
+</div>

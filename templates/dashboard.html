@@ -1,0 +1,37 @@
+{% include "header.html" %}
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<div class="container">
+    <h2>Welcome, {{ current_user.username }}</h2>
+    <p>Role: {{ current_user.role | capitalize }}</p>
+
+    {% if current_user.role == "patient" %}
+        <div class="section">
+            <h3>Patient Dashboard</h3>
+            <a href="{{ url_for('predict_page') }}" class="btn">🔬 AI Disease Predictor</a>
+            <a href="{{ url_for('request_consultation') }}" class="btn">📩 Request Consultation</a>
+
+            <!-- Show Pending Consultation Request -->
+            {% if consultation_status == "Pending" %}
+                <p style="color: orange;">Your consultation request is pending.</p>
+            {% endif %}
+        </div>
+
+    {% elif current_user.role == "admin" %}
+        <div class="section">
+            <h3>Admin Dashboard</h3>
+            <a href="{{ url_for('manage_doctors') }}" class="btn">👨‍⚕️ Manage Doctors</a>
+            <a href="{{ url_for('manage_patients') }}" class="btn">🧑‍⚕️ Manage Patients</a>
+            <a href="{{ url_for('admin_dashboard') }}" class="btn">📋 Consultation Requests</a>
+        </div>
+
+    {% elif current_user.role == "doctor" %}
+        <div class="section">
+            <h3>Doctor Dashboard</h3>
+            <a href="{{ url_for('doctor_dashboard') }}" class="btn">📄 View Assigned Patients</a>
+        </div>
+    {% endif %}
+
+    <a href="{{ url_for('logout') }}" class="btn btn-danger">🚪 Logout</a>
+</div>

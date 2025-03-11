@@ -1,0 +1,31 @@
+{% include "header.html" %}
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<div class="container">
+    <h2>Manage Patients</h2>
+
+    <form id="patient-form" method="POST" action="{{ url_for('manage_patients') }}">
+        <input type="text" name="name" placeholder="Patient Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="mobile" placeholder="Mobile Number" required>
+        <input type="text" name="blood_group" placeholder="Blood Group" required>
+        <button type="submit">Add Patient</button>
+    </form>
+
+    <ul id="patient-list">
+        {% for patient in patients %}
+            <li>{{ patient.name }} ({{ patient.blood_group }}) - Assigned Doctor: 
+                {% if patient.consultations and patient.consultations[0].doctor %}
+                    {{ patient.consultations[0].doctor.name }}
+                {% else %}
+                    Not Assigned
+                {% endif %}
+                <button onclick="removePatient({{ patient.id }})">❌ Remove</button>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('admin_dashboard') }}" class="btn">⬅ Back to Dashboard</a>
+</div>
